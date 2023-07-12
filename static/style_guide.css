@@ -1,14 +1,28 @@
+html {
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
 :root {
   --alfa-slab: 'Alfa Slab One', display;
   --maven-pro: 'Maven Pro', sans-serif;
 }
 
 :root {
-  --main-bg: white;
-  --text-color: 484848;
+  --main-bg    : white;
+  --text-color : #484848;
+  --emphasis   : #FF9029;
+  --emphasis-2 : #FF7C03;
+  --logo-shadow : #E0E0E0;
 }
 
 .theme-dark {
-  --main-bg: #282828;
-  --text-color: white;
+  --main-bg    : #282828;
+  --text-color : white;
+  --emphasis   : #FF9029;
+  --emphasis-2 : #FF7C03;
+  --logo-shadow : #E0E0E0;
 }

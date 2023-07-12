@@ -1,4 +1,6 @@
 <script>
+    import Splash from "./Splash.svelte";
+
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
@@ -42,7 +44,7 @@
 </svelte:head>
 
 <main>
-  <h1>BTC VS STOCKS</h1>
+  <Splash />
 
   <p><span>Save amount </span><input bind:value={amount} type="number" placeholder="Dollar" /></p>
 

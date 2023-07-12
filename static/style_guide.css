@@ -1,0 +1,14 @@
+:root {
+  --alfa-slab: 'Alfa Slab One', display;
+  --maven-pro: 'Maven Pro', sans-serif;
+}
+
+:root {
+  --main-bg: white;
+  --text-color: 484848;
+}
+
+.theme-dark {
+  --main-bg: #282828;
+  --text-color: white;
+}

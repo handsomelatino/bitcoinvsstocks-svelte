@@ -109,8 +109,6 @@
 <style>
   main {
     padding: 20px;
-    background-color: black;
-    color: white;
   }
 
   th, td {

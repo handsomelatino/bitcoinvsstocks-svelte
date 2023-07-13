@@ -23,3 +23,12 @@
 </script>
 
 <button on:click={toggleTheme}>{ color === 'dark' ? 'Light' : 'Dark'}</button>
+
+<style>
+  button {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 1;
+  }
+</style>

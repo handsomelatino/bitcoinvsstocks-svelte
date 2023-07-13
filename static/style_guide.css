@@ -14,15 +14,23 @@ html {
 :root {
   --main-bg    : white;
   --text-color : #484848;
+  --text-dim   : #848484;
   --emphasis   : #FF9029;
   --emphasis-2 : #FF7C03;
   --logo-shadow : #E0E0E0;
+
+  --light-bg: #F0F0F0;
+  --green: #00B912;
 }
 
 .theme-dark {
   --main-bg    : #282828;
   --text-color : white;
+  --text-dim   : #CACACA;
   --emphasis   : #FF9029;
-  --emphasis-2 : #FF7C03;
+  --emphasis-2 : #bd3200;
   --logo-shadow : #E0E0E0;
+
+  --light-bg: #3E3E3E;
+  --green: #00FF1A;
 }

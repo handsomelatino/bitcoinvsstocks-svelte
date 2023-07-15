@@ -29,6 +29,14 @@
     { id: 3, text: "three" },
     { id: 4, text: "four" },
     { id: 5, text: "five" },
+  ];
+
+  let COMMON_STOCKS = [
+    { id: "^GSPC", label: "S&P 500" },
+    { id:  "^DJI", label: "Dow Jones" },
+    { id: "^IXIC", label: "NASDAQ" },
+    { id: "GC=F",  label: "Gold" },
+    { id: "SI=F",  label: "Silver" },
   ]
 
   const handleCalculate = async () => {
@@ -68,17 +76,25 @@
       <span>years in <strong>Bitcoin</strong></span>
     </p>
 
-    <p><span>compared to </span><input bind:value={ticker} placeholder="Stock ticker" /></p>
+    <p><span>compared to </span>
+      <select bind:value={ticker}>
+        {#each COMMON_STOCKS as s}
+          <option value={s.id}>{s.label}</option>
+        {/each}
+      </select>
+      <!-- <input bind:value={ticker} placeholder="Stock ticker" /></p> -->
   </div>
 
   <button class='calculate' on:click={handleCalculate}>CALCULATE</button>
 
   {#if dcaData}
+    <p>Saving {formatter.format(amount)} { frequency === 'b' ? 'every' : 'per' } {FREQUENCIES.find(f => f.id === frequency).text} for the past {years} years until today results in:</p>
+
     <table>
       <tr>
         <th />
         <th>BTC</th>
-        <th>{ dcaData.Stocks.ticker }</th>
+        <th>{ COMMON_STOCKS.find(s => s.id === dcaData.Stocks.ticker).label }</th>
       </tr>
 
       <tr>

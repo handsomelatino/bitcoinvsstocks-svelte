@@ -13,6 +13,7 @@ html {
 
 :root {
   --main-bg    : white;
+  --dark-bg    : #282828;
   --text-color : #484848;
   --text-dim   : #848484;
   --emphasis   : #FF9029;
@@ -25,11 +26,12 @@ html {
 
 .theme-dark {
   --main-bg    : #282828;
+  --dark-bg    : #e0e0e0;
   --text-color : white;
   --text-dim   : #CACACA;
   --emphasis   : #FF9029;
   --emphasis-2 : #bd3200;
-  --logo-shadow : #E0E0E0;
+  --logo-shadow : #848484;
 
   --light-bg: #3E3E3E;
   --green: #00FF1A;

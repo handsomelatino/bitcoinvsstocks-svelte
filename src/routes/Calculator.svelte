@@ -1,4 +1,6 @@
 <script>
+  import { PUBLIC_API_URL } from '$env/static/public';
+
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
@@ -9,12 +11,14 @@
   });
 
   let mode = 'simple';
-  let amount = 150;
+  let amount = 250;
   let frequency = 'm';
-  let years = 3;
+  let years = 5;
   let ticker = '^GSPC';
 
   let dcaData;
+
+  let fetching = false;
 
   let FREQUENCIES = [
     { id: "d", text: "day" },
@@ -24,11 +28,11 @@
   ];
 
   let YEARS = [
-    { id: 1, text: "one" },
-    { id: 2, text: "two" },
-    { id: 3, text: "three" },
-    { id: 4, text: "four" },
-    { id: 5, text: "five" },
+    { id: 1, text: "1 years" },
+    { id: 2, text: "2 years" },
+    { id: 3, text: "3 years" },
+    { id: 4, text: "4 years" },
+    { id: 5, text: "5 years" },
   ];
 
   let COMMON_STOCKS = [
@@ -40,8 +44,10 @@
   ]
 
   const handleCalculate = async () => {
-    dcaData = await fetch(`http://127.0.0.1:8000/dca/?mode=${mode}&amount=${amount}&frequency=${frequency}&years=${years}&ticker=${ticker}`).then(x => x.json());
+    fetching = true;
+    dcaData = await fetch(`${PUBLIC_API_URL}/dca/?mode=${mode}&amount=${amount}&frequency=${frequency}&years=${years}&ticker=${ticker}`).then(x => x.json());
     console.log('data:', dcaData);
+    fetching = false;
   }
 
 </script>
@@ -73,7 +79,7 @@
           <option value={y.id}>{y.text}</option>
         {/each}
       </select>
-      <span>years in <strong>Bitcoin</strong></span>
+      <span>in <strong>Bitcoin</strong></span>
     </p>
 
     <p><span>compared to </span>
@@ -85,10 +91,10 @@
       <!-- <input bind:value={ticker} placeholder="Stock ticker" /></p> -->
   </div>
 
-  <button class='calculate' on:click={handleCalculate}>CALCULATE</button>
+  <button class='calculate' disabled={fetching} on:click={handleCalculate}>Calculate</button>
 
   {#if dcaData}
-    <p>Saving {formatter.format(amount)} { frequency === 'b' ? 'every' : 'per' } {FREQUENCIES.find(f => f.id === frequency).text} for the past {years} years until today results in:</p>
+    <p>Saving <strong>{formatter.format(amount)} { frequency === 'b' ? 'every' : 'per' } {FREQUENCIES.find(f => f.id === frequency).text}</strong> for the past {years} years until today results in:</p>
 
     <table>
       <tr>
@@ -187,6 +193,11 @@
     font-weight: bold;
     transition: filter 0.3s;
     margin: 20px 0;
+  }
+
+  button.calculate:disabled {
+    opacity: 0.5;
+    cursor: auto;
   }
 
   button:hover {

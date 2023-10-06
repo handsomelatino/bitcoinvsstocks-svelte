@@ -2,10 +2,10 @@
   import ThemeToggle from "./ThemeToggle.svelte";
 </script>
 
-<nav>
+<!-- <nav>
   <a href='/'>Home</a>
   <a href='/about'>About</a>
-</nav>
+</nav> -->
 
 <ThemeToggle />
 

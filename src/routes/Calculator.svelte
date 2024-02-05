@@ -45,7 +45,7 @@
 
   const handleCalculate = async () => {
     fetching = true;
-    dcaData = await fetch(`${PUBLIC_API_URL}/dca/?mode=${mode}&amount=${amount}&frequency=${frequency}&years=${years}&ticker=${ticker}`).then(x => x.json());
+    dcaData = await fetch(`${PUBLIC_API_URL}/?mode=${mode}&amount=${amount}&frequency=${frequency}&years=${years}&ticker=${ticker}`).then(x => x.json());
     console.log('data:', dcaData);
     fetching = false;
   }

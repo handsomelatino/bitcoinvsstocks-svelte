@@ -47,12 +47,23 @@
     align-items: center;
     justify-content: center;
     background-color: var(--dark-bg);
+
+    @media screen and (max-width: 480px) {
+      top: 12px;
+      right: 12px;
+      width: 28px;
+      height: 28px;
+    }
   }
 
   button > svg {
     width: 24px;
     height: 24px;
-    /* fill: var(--text-dim); */
+
+    @media screen and (max-width: 480px) {
+      width: 16px;
+      height: 16px;
+    }
   }
 
 </style>

@@ -20,6 +20,7 @@
   let dcaData;
 
   let fetching = false;
+  let calculationDate;
 
   let FREQUENCIES = [
     { id: "d", text: "day" },
@@ -49,6 +50,7 @@
     dcaData = await fetch(`${PUBLIC_API_URL}/?mode=${mode}&amount=${amount}&frequency=${frequency}&years=${years}&ticker=${ticker}`).then(x => x.json());
     console.log('data:', dcaData);
     fetching = false;
+    calculationDate = new Date().toLocaleDateString('en-us', { year: "numeric", day: "numeric", month: "short" });
   }
 
 </script>
@@ -95,7 +97,7 @@
       <button class='calculate' disabled={fetching} on:click={handleCalculate}>Calculate</button>
       
   {#if dcaData}
-    <p>Saving <strong>{formatter.format(amount)} { frequency === 'b' ? 'every' : 'per' } {FREQUENCIES.find(f => f.id === frequency).text}</strong> for the past {years} years until today results in:</p>
+    <p>Saving <strong>{formatter.format(amount)} { frequency === 'b' ? 'every' : 'per' } {FREQUENCIES.find(f => f.id === frequency).text}</strong> for the past {years} years until today ({calculationDate}) results in:</p>
 
     <table>
       <tr>
@@ -135,7 +137,7 @@
 <style>  
   section {
     font-size: 24px;
-    padding: 20px;
+    padding: 16px;
     scroll-behavior: smooth;
     max-width: 600px;
     margin: 0 auto;
@@ -151,10 +153,8 @@
     font-family: var(--alfa-slab);
     font-weight: normal;
     text-transform: uppercase;
-    text-align: center;
-    font-size: 20px;
-    margin: 12px auto 32px;
-    /* letter-spacing: 1px; */
+    font-size: 22px;
+    margin: 0 auto 20px;
   }
 
   h2 .btc {

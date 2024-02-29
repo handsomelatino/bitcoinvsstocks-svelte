@@ -53,6 +53,10 @@
     calculationDate = new Date().toLocaleDateString('en-us', { year: "numeric", day: "numeric", month: "short" });
   }
 
+  const resetCalculator = () => {
+    dcaData = false;
+  }
+
 </script>
 
 <section id="calculate">
@@ -63,74 +67,76 @@
       <span>Saving / Investing </span>
       <span class='dollar-container'>
         <span class='dollar-sign'>$</span>
-        <input bind:value={amount} type="number" placeholder="Dollar" />
+        <input bind:value={amount} type="number" placeholder="Dollar" on:click={resetCalculator} />
       </span>
 
       <span>in Bitcoin every</span>
 
-      <select bind:value={frequency}>
+      <select bind:value={frequency} on:change={resetCalculator}>
         {#each FREQUENCIES as f}
           <option value={f.id}>{f.text}</option>
         {/each}
       </select>
       
       <span>for the past</span>
-      <select bind:value={years}>
+      <select bind:value={years} on:change={resetCalculator}>
         {#each YEARS as y}
         <option value={y.id}>{y.text}</option>
         {/each}
       </select>
     </div>
       
-      <p><span>compared to </span>
-        <select class="tickers" bind:value={ticker}>
-          {#each COMMON_STOCKS as s}
-            <option value={s.id}>{s.label}</option>
-          {/each}
-          {#each POPULAR_STOCKS as s}
-            <option value={s.id}>{s.label}</option>
-          {/each}
-        </select>
-        <!-- <input bind:value={ticker} placeholder="Stock ticker" /></p> -->
-      </div>
-      
+    <p>
+      <span>compared to </span>
+      <select class="tickers" bind:value={ticker} on:change={resetCalculator}>
+        {#each COMMON_STOCKS as s}
+          <option value={s.id}>{s.label}</option>
+        {/each}
+        {#each POPULAR_STOCKS as s}
+          <option value={s.id}>{s.label}</option>
+        {/each}
+      </select>
+    </p>
+
+    {#if dcaData}
+      <h2 class="results">Results</h2>
+      <p class="results">Saving <strong>{formatter.format(amount)} { frequency === 'b' ? 'every' : 'per' } {FREQUENCIES.find(f => f.id === frequency).text}</strong> for the past {years} years until today ({calculationDate}) results in:</p>
+
+      <table>
+        <tr>
+          <th />
+          <th>BTC</th>
+          <th>{ COMMON_STOCKS.find(s => s.id === dcaData.Stocks.ticker)?.label || dcaData.Stocks.ticker }</th>
+        </tr>
+
+        <tr>
+          <td>Invested</td>
+          <td>{ formatter.format(dcaData.Bitcoin.invested) }</td>
+          <td>{ formatter.format(dcaData.Stocks.invested) }</td>
+        </tr>
+
+        <tr>
+          <td>Return</td>
+          <td>{ formatter.format(dcaData.Bitcoin.savings) }</td>
+          <td>{ formatter.format(dcaData.Stocks.savings) }</td>
+        </tr>
+
+        <tr>
+          <td>Profit</td>
+          <td style:color={dcaData.Bitcoin.profit > 0 ? 'var(--green)' : 'red'}>{ dcaData.Bitcoin.profit }%</td>
+          <td style:color={dcaData.Stocks.profit > 0 ? 'var(--green)' : 'red'}>{ dcaData.Stocks.profit }%</td>
+        </tr>
+
+        <tr>
+          <td>Stacked</td>
+          <td class="centered">{ dcaData.Bitcoin.btc_amount } BTC</td>
+          <td class="centered"> — </td>
+        </tr>
+      </table>
+
+    {:else}
       <button class='calculate' disabled={fetching} on:click={handleCalculate}>Calculate</button>
-      
-  {#if dcaData}
-    <p>Saving <strong>{formatter.format(amount)} { frequency === 'b' ? 'every' : 'per' } {FREQUENCIES.find(f => f.id === frequency).text}</strong> for the past {years} years until today ({calculationDate}) results in:</p>
-
-    <table>
-      <tr>
-        <th />
-        <th>BTC</th>
-        <th>{ COMMON_STOCKS.find(s => s.id === dcaData.Stocks.ticker)?.label || dcaData.Stocks.ticker }</th>
-      </tr>
-
-      <tr>
-        <td>Invested</td>
-        <td>{ formatter.format(dcaData.Bitcoin.invested) }</td>
-        <td>{ formatter.format(dcaData.Stocks.invested) }</td>
-      </tr>
-
-      <tr>
-        <td>Return</td>
-        <td>{ formatter.format(dcaData.Bitcoin.savings) }</td>
-        <td>{ formatter.format(dcaData.Stocks.savings) }</td>
-      </tr>
-
-      <tr>
-        <td>Profit</td>
-        <td style:color={dcaData.Bitcoin.profit > 0 ? 'var(--green)' : 'red'}>{ dcaData.Bitcoin.profit }%</td>
-        <td style:color={dcaData.Stocks.profit > 0 ? 'var(--green)' : 'red'}>{ dcaData.Stocks.profit }%</td>
-      </tr>
-
-      <tr>
-        <td>Stacked</td>
-        <td class="centered">{ dcaData.Bitcoin.btc_amount } BTC</td>
-        <td class="centered"> — </td>
-      </tr>
-    </table>
-  {/if}
+    {/if}
 
   </section>
 
@@ -166,9 +172,41 @@
     /* text-shadow: 0 2px 0 var(--logo-shadow); */
   }
 
-  small {
+  h2 small {
     font-size: 12px;
     vertical-align: middle;
+  }
+
+  h2.results {
+    font-size: 18px;
+    margin-block: 32px 12px;
+  }
+
+  h2.results:before, h2.results:after {
+    background-color: var(--text-dim);
+    content: "";
+    display: inline-block;
+    height: 2px;
+    position: relative;
+    vertical-align: middle;
+    width: 28%;
+    transform: translateY(-50%);
+  }
+
+  h2.results:before {
+    right: 1em;
+    margin-left: -50%;
+  }
+
+  h2.results:after {
+    left: 1em;
+    margin-right: -50%;
+  }
+
+  p.results {
+    font-size: 16px;
+    line-height: 22px;
+    margin-top: 12px;
   }
 
   .grid {

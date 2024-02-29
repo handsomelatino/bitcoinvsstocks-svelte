@@ -1,11 +1,10 @@
 <script>
-    import Calculator from "./Calculator.svelte";
-    import Splash from "./Splash.svelte";
-
+  import Calculator from "./Calculator.svelte";
+  import Splash from "./Splash.svelte";
 </script>
 
 <svelte:head>
-    <title>Bitcoin VS Stocks</title> 
+  <title>Bitcoin VS Stocks</title> 
 </svelte:head>
 
 <main>

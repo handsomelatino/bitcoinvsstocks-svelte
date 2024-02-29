@@ -64,7 +64,7 @@
         <input bind:value={amount} type="number" placeholder="Dollar" />
       </span>
 
-      <span>every </span>
+      <span>in Bitcoin every</span>
 
       <select bind:value={frequency}>
         {#each FREQUENCIES as f}
@@ -72,7 +72,7 @@
         {/each}
       </select>
       
-      <span>For the past </span>
+      <span>for the past</span>
       <select bind:value={years}>
         {#each YEARS as y}
         <option value={y.id}>{y.text}</option>
@@ -143,7 +143,7 @@
     text-align: center;
 
     @media screen and (max-width: 480px) {
-      font-size: 16px;
+      font-size: 18px;
     }
   }
 
@@ -214,7 +214,7 @@
     width: 100%;
 
     @media screen and (max-width: 480px) {
-      font-size: 16px;
+      font-size: 18px;
     }
   }
 

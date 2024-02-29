@@ -154,16 +154,16 @@
     text-align: center;
     font-size: 20px;
     margin: 12px auto 32px;
-    letter-spacing: 1px;
+    /* letter-spacing: 1px; */
   }
 
   h2 .btc {
     color: var(--emphasis);
-    text-shadow: 0 2px 0 var(--emphasis-2);
+    /* text-shadow: 0 2px 0 var(--emphasis-2); */
   }
 
   h2 .stocks {
-    text-shadow: 0 2px 0 var(--logo-shadow);
+    /* text-shadow: 0 2px 0 var(--logo-shadow); */
   }
 
   small {

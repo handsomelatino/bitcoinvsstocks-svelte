@@ -335,7 +335,7 @@
   }
 
   .ticker-toggle .ticker-item {
-    gap: 16px;
+    gap: 12px;
     justify-content: space-between;
     align-items: center;
   }
@@ -343,6 +343,7 @@
   .ticker-toggle .ticker-item .label {
     flex: 1;
     text-align: left;
+    color: var(--text-color);
   }
 
   .ticker-toggle .ticker-item svg {

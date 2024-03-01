@@ -1,0 +1,5 @@
+[ ] Add Favicon
+[ ] Head title / description
+[ ] FAQ
+[ ] Donate
+[ ] Search by ticker...

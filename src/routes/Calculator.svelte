@@ -25,7 +25,7 @@
   let showTickerMenu = false;
 
   let FREQUENCIES = [
-    { id: "d", text: "day" },
+    // { id: "d", text: "day" }, // <- day goes crazy because stock markets are closed on weekends
     { id: "w", text: "week" },
     { id: "b", text: "two weeks" },
     { id: "m", text: "month" },
@@ -316,6 +316,7 @@
     margin-top: 8px;
     font-size: 20px;
     z-index: 3;
+    border: 1px solid rgba(255, 255, 255, 0.7);
 
     @media screen and (max-width: 480px) {
       position: fixed;
@@ -347,6 +348,10 @@
   .ticker-toggle .ticker-item svg {
     margin-top: 4px;
     margin-right: 8px;
+  }
+  
+  .ticker-toggle .ticker-item svg path {
+    stroke: var(--text-color);
   }
 
   .ticker-item {

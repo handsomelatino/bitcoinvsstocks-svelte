@@ -18,9 +18,11 @@
   let ticker = '^GSPC';
 
   let dcaData;
+  let fetchError;
 
   let fetching = false;
   let calculationDate;
+  let showTickerMenu = false;
 
   let FREQUENCIES = [
     { id: "d", text: "day" },
@@ -47,14 +49,58 @@
 
   const handleCalculate = async () => {
     fetching = true;
-    dcaData = await fetch(`${PUBLIC_API_URL}/?mode=${mode}&amount=${amount}&frequency=${frequency}&years=${years}&ticker=${ticker}`).then(x => x.json());
-    console.log('data:', dcaData);
-    fetching = false;
-    calculationDate = new Date().toLocaleDateString('en-us', { year: "numeric", day: "numeric", month: "short" });
+    fetchError = false;
+
+    try {
+      const tickerParam = encodeURIComponent(ticker);
+      const response = await fetch(`${PUBLIC_API_URL}/?mode=${mode}&amount=${amount}&frequency=${frequency}&years=${years}&ticker=${tickerParam}`);
+
+      if (response.ok) {
+        dcaData = await response.json();
+        calculationDate = new Date().toLocaleDateString('en-us', { year: "numeric", day: "numeric", month: "short" });
+      }
+      else {
+        const data = await response.json();
+        throw new Error(data.error);
+      } 
+    }
+    catch (e) {
+      dcaData = null;
+      fetchError = e.message;
+    }
+    finally {
+      fetching = false;
+    }
+  }
+
+  const toggleTickerMenu = () => {
+    if (showTickerMenu) {
+      showTickerMenu = false;
+      window.document.body.classList.remove('fixed-body');
+    }
+    else {
+      showTickerMenu = true;
+      window.document.body.classList.add('fixed-body');
+    }
+  }
+
+  const changeTicker = value => {
+    ticker = value;
+    resetCalculator();
+    toggleTickerMenu();
   }
 
   const resetCalculator = () => {
     dcaData = false;
+    fetchError = false;
+  }
+
+  const scroll = node => {
+    node.childNodes.forEach(childNode => {
+      if (childNode.classList?.contains("selected")) {
+        node.scrollTo(0, childNode.offsetTop - (node.offsetHeight / 2));
+      }
+    });
   }
 
 </script>
@@ -81,22 +127,40 @@
       <span>for the past</span>
       <select bind:value={years} on:change={resetCalculator}>
         {#each YEARS as y}
-        <option value={y.id}>{y.text}</option>
+          <option value={y.id}>{y.text}</option>
         {/each}
       </select>
     </div>
       
-    <p>
+    <div class="compared-to">
       <span>compared to </span>
-      <select class="tickers" bind:value={ticker} on:change={resetCalculator}>
-        {#each COMMON_STOCKS as s}
-          <option value={s.id}>{s.label}</option>
-        {/each}
-        {#each POPULAR_STOCKS as s}
-          <option value={s.id}>{s.label}</option>
-        {/each}
-      </select>
-    </p>
+      <div class="ticker-select">
+        <button class="ticker-toggle" on:click={toggleTickerMenu}>
+          <div class="ticker-item">
+            <span class="ticker">{ticker}</span>
+            <span class="label">{COMMON_STOCKS.find(s => s.id === ticker)?.label || POPULAR_STOCKS.find(s => s.id === ticker)?.label }</span>
+            <svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 1L7.44454 5.8463L13.1157 1" stroke="#484848" stroke-width="1.81736"/>
+            </svg>            
+          </div>
+        </button>
+
+        {#if showTickerMenu}
+          <div class="menu-overlay" on:click={toggleTickerMenu} tabindex="0" />
+
+          <div class="ticker-menu" role="dialog" use:scroll>
+            {#each COMMON_STOCKS as s}
+              <div role="button" class="ticker-item from-menu" class:selected={ticker === s.id} on:click={() => changeTicker(s.id)}><span class="ticker">{s.id}</span> <span class="label">{s.label}</span></div>
+            {/each}
+            <hr />
+            {#each POPULAR_STOCKS as s}
+              <div role="button" class="ticker-item from-menu" class:selected={ticker === s.id} on:click={() => changeTicker(s.id)}><span class="ticker">{s.id}</span> <span class="label">{s.label}</span></div>
+            {/each}
+          </div> 
+        {/if}
+
+      </div>
+    </div>
 
     {#if dcaData}
       <h2 class="results">Results</h2>
@@ -138,6 +202,12 @@
       <button class='calculate' disabled={fetching} on:click={handleCalculate}>Calculate</button>
     {/if}
 
+    {#if fetchError}
+      <div class="error">
+        <p>{ fetchError }</p>
+      </div>
+    {/if}
+
   </section>
 
 <style>  
@@ -165,11 +235,6 @@
 
   h2 .btc {
     color: var(--emphasis);
-    /* text-shadow: 0 2px 0 var(--emphasis-2); */
-  }
-
-  h2 .stocks {
-    /* text-shadow: 0 2px 0 var(--logo-shadow); */
   }
 
   h2 small {
@@ -204,9 +269,123 @@
   }
 
   p.results {
-    font-size: 16px;
-    line-height: 22px;
     margin-top: 12px;
+  }
+
+  .compared-to {
+    margin-block: 20px;
+  }
+
+  .ticker-select {
+    position: relative;
+    margin-top: 8px;
+  }
+
+  .menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 2;
+    animation: show-menu-overlay 0.3s forwards;
+  }
+
+  .ticker-toggle {
+    all: unset;
+    cursor: pointer;
+    box-sizing: border-box;
+    display: block;
+    background-color: var(--light-bg);
+    border-radius: 8px;
+    width: 100%;
+  }
+
+  .ticker-menu {
+    position: absolute;
+    top: 100%;
+    max-height: 50vh;
+    overflow: auto;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 15%);
+    width: 100%;
+    border-radius: 6px;
+    background-color: var(--main-bg);
+    padding: 8px 12px;
+    text-align: left;
+    margin-top: 8px;
+    font-size: 20px;
+    z-index: 3;
+
+    @media screen and (max-width: 480px) {
+      position: fixed;
+      top: 5%;
+      left: 5%;
+      right: 5%;
+      bottom: 5%;
+      width: unset;
+      max-height: unset;
+      margin-top: 0;
+    }
+  }
+
+  .ticker-menu hr {
+    border-top: 1px solid var(--logo-shadow);
+  }
+
+  .ticker-toggle .ticker-item {
+    gap: 16px;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .ticker-toggle .ticker-item .label {
+    flex: 1;
+    text-align: left;
+  }
+
+  .ticker-toggle .ticker-item svg {
+    margin-top: 4px;
+    margin-right: 8px;
+  }
+
+  .ticker-item {
+    display: flex;
+    gap: 8px;
+    color: var(--text-dim);
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+
+  .ticker-item.from-menu:hover {
+    background-color: var(--light-bg);
+  }
+
+  .ticker-item.from-menu.selected {
+    background-color: var(--light-bg);
+  }
+
+  .ticker-item .ticker {
+    color: var(--text-color);
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+  
+  .ticker-item.from-menu .ticker {
+    min-width: 68px;
+  }
+
+  .ticker-item .label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .error {
+    color: var(--alert);
+    margin-top: 40px;
+    font-weight: bold;
   }
 
   .grid {
@@ -256,10 +435,6 @@
     }
   }
 
-  select.tickers {
-    margin-top: 8px;
-  }
-
   button.calculate {
     all: unset;
     cursor: pointer;
@@ -287,7 +462,7 @@
     cursor: auto;
   }
 
-  button:hover {
+  button.calculate:hover {
     transition: filter 0.3s;
     filter: brightness(1.1);
   }
@@ -339,5 +514,14 @@
   td:last-child {
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
+  }
+
+  @keyframes show-menu-overlay {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 </style>

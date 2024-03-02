@@ -39,6 +39,10 @@ html {
   --green: #00FF1A;
 }
 
+/* on mobiles, do not allow scrolling */
 .fixed-body {
-  overflow: hidden;
+  @media screen and (max-width: 480px) {
+    position: fixed;
+    overflow: hidden;
+  }
 }

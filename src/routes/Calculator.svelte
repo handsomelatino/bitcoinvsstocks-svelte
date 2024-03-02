@@ -48,6 +48,8 @@
   ];
 
   const handleCalculate = async () => {
+    plausible("Calculate", { props: { ticker } });
+    
     fetching = true;
     fetchError = false;
 

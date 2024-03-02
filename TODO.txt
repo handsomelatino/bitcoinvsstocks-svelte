@@ -2,5 +2,7 @@
 [x] Head title / description
 [ ] FAQ
 [ ] Donate
-[ ] Search by ticker...
 [ ] twitter OG:Card
+[x] plausible
+
+[ ] Search by ticker...

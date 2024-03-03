@@ -16,11 +16,6 @@
   <p>The code is open source, you can verify how it works by checking our <a href="https://github.com/GianlucaTassara/bitcoinvsstocks">Python API Backend</a> and <a href="https://github.com/handsomelatino/bitcoinvsstocks-svelte">Svelte Frontend</a> source code.</p>
   <p>The historical prices for both bitcoin and stocks are extracted from Yahoo Finance's API and then the results are calculated according to the options you selected.</p>
 
-  <h3>I want to compare a stock but it's not on the list 😭</h3>
-  <p>Current version only shows popular stocks with a high market cap.</p>
-  <p>We are currently working to include a search option so that you can look up any stock and compare it.</p>
-  <p>Stay tuned!</p>
-
   <h3 id="donate">Find this site useful?</h3>
 
   <p>Bitcoin VS Stocks was created by <a href="https://twitter.com/GianlucaTassara">Gianluca Tassara</a> and <a href='https://handsomelatino.com'>Handsome Latino</a>.

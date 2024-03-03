@@ -1,6 +1,7 @@
 <script>
   import Calculator from "./Calculator.svelte";
   import Splash from "./Splash.svelte";
+  import FAQ from './FAQ.svelte';
 </script>
 
 <svelte:head>
@@ -11,6 +12,7 @@
 <main>
   <Splash />
   <Calculator />
+  <FAQ />
 </main>
 
 <style>

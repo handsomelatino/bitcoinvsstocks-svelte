@@ -49,7 +49,7 @@
 
   const handleCalculate = async () => {
     plausible("Calculate", { props: { ticker } });
-    
+
     fetching = true;
     fetchError = false;
 
@@ -115,7 +115,7 @@
       <span>Saving / Investing </span>
       <span class='dollar-container'>
         <span class='dollar-sign'>$</span>
-        <input bind:value={amount} type="number" placeholder="Dollar" on:click={resetCalculator} />
+        <input bind:value={amount} type="number" placeholder="amount" on:click={resetCalculator} />
       </span>
 
       <span>in Bitcoin every</span>
@@ -128,8 +128,8 @@
       
       <span>for the past</span>
       <select bind:value={years} on:change={resetCalculator}>
-        {#each YEARS as y}
-          <option value={y.id}>{y.text}</option>
+        {#each [1, 2, 3, 4, 5, 6, 7, 8, 9] as y}
+          <option value={y}>{y} {y === 1 ? 'year' : 'years'}</option>
         {/each}
       </select>
     </div>
@@ -210,17 +210,24 @@
       </div>
     {/if}
 
+    <div class="bottom-links">
+      <a href="#faq">FAQ</a>
+      <a href="#donate">Donate</a>
+    </div>
+
   </section>
 
 <style>  
   section {
     font-size: 24px;
-    padding: 16px;
+    padding: 16px 16px 40px;
     scroll-behavior: smooth;
     max-width: 600px;
     margin: 0 auto;
     min-height: 100vh;
+    min-height: 100dvh;
     text-align: center;
+    position: relative;
 
     @media screen and (max-width: 480px) {
       font-size: 18px;
@@ -522,6 +529,26 @@
   td:last-child {
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
+  }
+
+  .bottom-links {
+    position: absolute;
+    bottom: 12px;
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    left: 0;
+    right: 0;
+    font-size: smaller;
+  }
+
+  .bottom-links a {
+    text-decoration: none;
+    color: var(--text-color);
+  }
+
+  .bottom-links a:hover {
+    text-decoration: underline;
   }
 
   @keyframes show-menu-overlay {

@@ -105,6 +105,17 @@
     });
   }
 
+  const handleShare = async () => {
+    try {
+      await navigator.share({
+        title : 'Bitcoin vs Stocks: DCA Calculator',
+        text  : "Compare the results of dollar cost averaging (DCA) in Bitcoin versus stocks, indexes and precious metals.",
+        url   : "https://bitcoinvsstocks.com",
+      });
+    }
+    catch {}
+  }
+
 </script>
 
 <section id="calculate">
@@ -211,10 +222,15 @@
     {/if}
 
     <div class="bottom-links">
-      <a href="#faq">FAQ</a>
-      <a href="#donate">Donate</a>
+      <div class="links">
+        <a href="#faq">FAQ</a>
+        <a href="#donate">Donate</a>
+        <button class="share" on:click={handleShare}>Share</button>
+      </div>
+      <svg width="20" height="16" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L7.44454 5.8463L13.1157 1" stroke="white" stroke-width="1.81736"/>
+      </svg>
     </div>
-
   </section>
 
 <style>  
@@ -299,6 +315,10 @@
     background-color: rgba(0, 0, 0, 0.2);
     z-index: 2;
     animation: show-menu-overlay 0.3s forwards;
+
+    @media screen and (max-width: 480px) {
+      background-color: rgba(0, 0, 0, 0.5);
+    }
   }
 
   .ticker-toggle {
@@ -534,12 +554,28 @@
   .bottom-links {
     position: absolute;
     bottom: 12px;
-    display: flex;
-    justify-content: center;
-    gap: 32px;
     left: 0;
     right: 0;
-    font-size: smaller;
+    font-weight: bold;
+  }
+  
+  .links {
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+    margin-bottom: 8px;
+  }
+
+  button.share {
+    all: unset;
+    display: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    color: var(--text-color);
+    
+    @media screen and (max-width: 480px) {
+      display: block;
+    }
   }
 
   .bottom-links a {

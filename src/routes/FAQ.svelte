@@ -45,7 +45,10 @@
 
   h3 {
     color: var(--text-color);
-    text-align: center;
+  }
+  
+  h3:not(:first-of-type) {
+    margin-top: 44px;
   }
 
   p {

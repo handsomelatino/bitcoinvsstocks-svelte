@@ -10,6 +10,7 @@ const POPULAR_STOCKS = [
   {id: "AVGO", label: "Broadcom" },
   {id: "BAC", label: "Bank of America" },
   {id: "BRK-B", label: "Berkshire Hathaway" },
+  {id: "BSX", label: "Boston Scientific" },
   {id: "COST", label: "Costco Wholesale" },
   {id: "CRM", label: "Salesforce" },
   {id: "CVX", label: "Chevron" },

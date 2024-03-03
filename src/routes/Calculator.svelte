@@ -128,7 +128,7 @@
       <span>Saving / Investing </span>
       <span class='dollar-container'>
         <span class='dollar-sign'>$</span>
-        <input bind:value={amount} type="number" placeholder="amount" on:click={resetCalculator} />
+        <input bind:value={amount} type="number" placeholder="amount" on:change={resetCalculator} />
       </span>
 
       <span>in Bitcoin every</span>

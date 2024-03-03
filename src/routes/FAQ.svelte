@@ -30,7 +30,9 @@
 
   <!-- <lig htning-widget name="Gianluca Tassara" accent="#ff7300" to="" image="https://bitcoinfairprice.com/gianluca.jpg" /> -->
   
-  <p>Check out <a href='https://bitcoinfairprice.com'>Bitcoin Fair Price</a> to predict what Bitcoin's price might be in the future and feel free to reach out to me on <a href="https://twitter.com/GianlucaTassara">Twitter</a>.</p>
+  <p>Check out <a href='https://bitcoinfairprice.com'>Bitcoin Fair Price</a> to predict what Bitcoin's price might be in the future.</p>
+
+  <p>If you have any suggestions or feedback, feel free to contact us.</p>
 </section>
 
 <style>

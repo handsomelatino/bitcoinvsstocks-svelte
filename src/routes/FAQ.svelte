@@ -32,7 +32,7 @@
   
   <p>Check out <a href='https://bitcoinfairprice.com'>Bitcoin Fair Price</a> to predict what Bitcoin's price might be in the future.</p>
 
-  <p>If you have any suggestions or feedback, feel free to contact us.</p>
+  <p>If you have any suggestions or feedback, feel free to <a href="mailto:btcprojects@proton.me">contact us</a>.</p>
 </section>
 
 <style>

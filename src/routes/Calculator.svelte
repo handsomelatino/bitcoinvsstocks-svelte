@@ -229,9 +229,11 @@
         <a href="#donate">Donate</a>
         <button class="share" on:click={handleShare}>Share</button>
       </div>
-      <svg width="20" height="16" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M1 1L7.44454 5.8463L13.1157 1" stroke="white" stroke-width="1.81736"/>
-      </svg>
+      <a href='#faq'>
+        <svg width="20" height="16" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1 1L7.44454 5.8463L13.1157 1" stroke="white" stroke-width="1.81736"/>
+        </svg>
+      </a>
     </div>
   </section>
 

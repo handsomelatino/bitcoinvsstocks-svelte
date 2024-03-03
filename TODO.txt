@@ -4,10 +4,17 @@ V1
 [x] Head title / description
 [x] FAQ
 [x] Donate
-[ ] twitter OG:Card
+[x] twitter OG:Card
 [x] plausible
+[x] protonmail account
 
 V2
 --
-[ ] infinite loader
+[ ] calculate button spinner
 [ ] Search by ticker
+[ ] Readme
+[ ] Use custom dropdown for frequency/cadence
+
+V3
+--
+[ ] Simple Vs. Advanced (table) mode

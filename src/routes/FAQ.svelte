@@ -20,11 +20,15 @@
 
   <p>Bitcoin VS Stocks was created by <a href="https://twitter.com/GianlucaTassara">Gianluca Tassara</a> and <a href='https://handsomelatino.com'>Handsome Latino</a>.
     
-  <p>We are bitcoiners creating bitcoin-only projects and helping bring awareness to the fiat-minded world. Your donations will be spent improving and making more projects.</p>
+  <p>We are bitcoiners creating bitcoin-only projects and helping bring awareness to the fiat-minded world.</p>
+  <p>Your donations will be spent improving and making more projects.</p>
 
-  <p class="center"><a class="donate" href="https://pay.handsomelatino.com/api/v1/invoices?storeId=3zecRWVXGTMtpsE4157U8hjzL9iwBfPFBroABh3oWD3r&currency=USD">Donate (On Chain)</a></p>
-  <p class="center">Donate using Lightning ⚡️ below 👇</p>
-  <lightning-widget name="Gianluca Tassara" accent="#ff7300" to="gianluca@pay.bitcoinjungle.app" image="https://bitcoinfairprice.com/gianluca.jpg" />
+  <div class="donate-buttons">
+    <a class="donate" href="https://pay.handsomelatino.com/api/v1/invoices?storeId=3zecRWVXGTMtpsE4157U8hjzL9iwBfPFBroABh3oWD3r&currency=USD">BTC On Chain</a>
+    <a class="donate" href="lightning:gianluca@pay.bitcoinjungle.app">Lightning ⚡️</a>
+  </div>
+
+  <!-- <lig htning-widget name="Gianluca Tassara" accent="#ff7300" to="" image="https://bitcoinfairprice.com/gianluca.jpg" /> -->
   
   <p>Check out <a href='https://bitcoinfairprice.com'>Bitcoin Fair Price</a> to predict what Bitcoin's price might be in the future and feel free to reach out to me on <a href="https://twitter.com/GianlucaTassara">Twitter</a>.</p>
 </section>
@@ -59,6 +63,14 @@
     text-align: center;
   }
 
+  .donate-buttons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-width: 480px;
+    margin: 20px auto;
+  }
+
   a {
     color: var(--dark-bg);
   }
@@ -75,5 +87,7 @@
     text-decoration: none;
     padding: 8px 16px;
     font-weight: bold;
+    flex: 1;
+    text-align: center;
   }
 </style>

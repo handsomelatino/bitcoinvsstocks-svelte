@@ -109,9 +109,11 @@
     try {
       await navigator.share({
         title : 'Bitcoin vs Stocks: DCA Calculator',
-        text  : "Compare the results of dollar cost averaging (DCA) in Bitcoin versus stocks, indexes and precious metals.",
+        text  : "Compare the results of dollar cost averaging (DCA) in Bitcoin versus stocks, indexes and precious metals:",
         url   : "https://bitcoinvsstocks.com",
       });
+
+      plausible("Share");
     }
     catch {}
   }
@@ -236,7 +238,7 @@
 <style>  
   section {
     font-size: 24px;
-    padding: 16px 16px 40px;
+    padding: 16px 16px 80px;
     scroll-behavior: smooth;
     max-width: 600px;
     margin: 0 auto;
@@ -558,6 +560,14 @@
     right: 0;
     font-weight: bold;
   }
+
+  .bottom-links svg path {
+    stroke: var(--text-color);
+  }
+
+  .bottom-links svg {
+    animation: anim-botttom-arrow 2s alternate infinite;
+  }
   
   .links {
     display: flex;
@@ -593,6 +603,20 @@
     }
     to {
       opacity: 1;
+    }
+  }
+
+  @keyframes anim-botttom-arrow {
+    0% {
+      transform: translateY(0);
+    }
+
+    60% {
+      transform: translateY(0);
+    }
+
+    100% {
+      transform: translateY(3px);
     }
   }
 </style>

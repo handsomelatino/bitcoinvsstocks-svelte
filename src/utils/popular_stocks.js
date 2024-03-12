@@ -27,6 +27,7 @@ const POPULAR_STOCKS = [
   {id: "META", label: "Meta Platforms" },
   {id: "MRK", label: "Merck & Company" },
   {id: "MSFT", label: "Microsoft" },
+  {id: "MSTR", label: "MicroStrategy" },
   {id: "NFLX", label: "Netflix" },
   {id: "NVDA", label: "NVIDIA" },
   {id: "NVO", label: "Novo Nordisk A/S" },
